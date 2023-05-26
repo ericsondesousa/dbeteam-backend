@@ -2,8 +2,12 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Carbon\Carbon;
+use App\Helper\Dev;
+use App\Models\Plan;
+use App\Enums\Gender;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -17,12 +21,19 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $devHelper = new Dev();
+        $name = $devHelper->getFakeFullname(Gender::male);
+
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
+            'name' => $name,
+            'email' => $devHelper->getFakeEmail($name),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'plan_id' => fake()->randomElement(Plan::all(['id'])),
+            'active' => fake()->boolean(80),
+            'expired_at' => Carbon::now()->addDays(rand(-5, 15)),
+            'last_access' => Carbon::now()->subDays(rand(0, 30))->subHours(rand(0, 23)),
             'remember_token' => Str::random(10),
+            'email_verified_at' => Carbon::now()
         ];
     }
 

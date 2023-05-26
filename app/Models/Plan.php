@@ -2,23 +2,27 @@
 
 namespace App\Models;
 
-use DateTimeInterface;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Plan extends Model
+class Plan extends BaseModel
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    protected function serializeDate(DateTimeInterface $date)
-    {
-        return $date->format(config('dev.date_format.br'));
-    }
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
 
     public function notFoundMessage()
     {
         return __('plan.not_found');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
     }
 }

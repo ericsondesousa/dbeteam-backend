@@ -1,0 +1,53 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\User;
+use Illuminate\Http\Request;
+use App\Services\UserService;
+use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Auth;
+
+class UserController extends Controller
+{
+    private $service;
+
+    public function __construct()
+    {
+        $this->service = new UserService();
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $r)
+    {
+        return response()->json(Auth::attempt(['email' => $r->email, 'password' => $r->password]));
+        
+        return $this->service->getAllWithPlan();
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(User $user)
+    {
+        return $this->service->getOneWithPlan($user->id);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UserRequest $request, User $user)
+    {
+        return $this->service->updateUser($request, $user);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(User $user)
+    {
+        return response()->json($this->service->deleteUser($user));
+    }
+}
