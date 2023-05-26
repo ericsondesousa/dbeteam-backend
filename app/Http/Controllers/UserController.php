@@ -22,8 +22,6 @@ class UserController extends Controller
      */
     public function index(Request $r)
     {
-        return response()->json(Auth::attempt(['email' => $r->email, 'password' => $r->password]));
-        
         return $this->service->getAllWithPlan();
     }
 
