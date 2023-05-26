@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PlanRequest;
-use App\Http\Resources\Plan\PlanResource;
 use App\Models\Plan;
 use App\Services\PlanService;
 
@@ -21,7 +20,7 @@ class PlanController extends Controller
      */
     public function index()
     {
-        return PlanResource::collection($this->service->getAll());
+        return $this->service->getAll();
     }
 
     /**
@@ -29,7 +28,7 @@ class PlanController extends Controller
      */
     public function store(PlanRequest $request)
     {
-        return new PlanResource($this->service->createPlan($request));
+        return $this->service->createPlan($request);
     }
 
     /**
@@ -37,7 +36,7 @@ class PlanController extends Controller
      */
     public function show(Plan $plan)
     {
-        return new PlanResource($plan);
+        return $plan;
     }
 
     /**
@@ -45,7 +44,7 @@ class PlanController extends Controller
      */
     public function update(PlanRequest $request, Plan $plan)
     {
-        return new PlanResource($this->service->updatePlan($request, $plan));
+        return $this->service->updatePlan($request, $plan);
     }
 
     /**
