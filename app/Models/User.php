@@ -35,7 +35,6 @@ class User extends Authenticatable
     protected static function booted()
     {
         static::creating(function ($model) {
-            $model->password = Hash::make($model->password);
             $model->plan_id = 1;
         });
     }
