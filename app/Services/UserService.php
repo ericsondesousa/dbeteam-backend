@@ -12,9 +12,9 @@ class UserService
         return User::all();
     }
 
-    public function getAllWithPlan()
+    public function getAllWithTenant()
     {
-        return User::with('plan')->get();
+        return User::with('tenant')->get();
     }
 
     public function getOne(int $id)
@@ -22,9 +22,9 @@ class UserService
         return User::find($id);
     }
 
-    public function getOneWithPlan(int $id)
+    public function getOneWithTenant(int $id)
     {
-        return User::with('plan')->find($id);
+        return User::with('tenant')->find($id);
     }
 
     public function updateUser(UserRequest $request, User $user)

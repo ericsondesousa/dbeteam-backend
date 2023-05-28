@@ -8,18 +8,19 @@ use DateTimeInterface;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     protected $guarded = [];
 
     protected $hidden = [
         'password',
         'remember_token',
-        'plan_id',
+        'tenant_id',
         'last_access',
         'email_verified_at',
         'updated_at'
@@ -34,7 +35,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected static function booted()
     {
         static::creating(function ($model) {
-            $model->plan_id = 1;
+            //
         });
     }
 
@@ -43,8 +44,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return Carbon::instance($date)->format(config('dev.date_format.default'));
     }
 
-    public function plan()
+    public function tenant()
     {
-        return $this->belongsTo(Plan::class);
+        return $this->belongsTo(Tenant::class);
     }
 }

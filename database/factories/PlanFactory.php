@@ -17,7 +17,7 @@ class PlanFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+            'name' => fake()->word(),
             'events_limit' => fake()->numberBetween(1, 3),
             'players_limit' => fake()->numberBetween(1, 100)
         ];

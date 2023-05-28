@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\UserService;
 use App\Http\Requests\UserRequest;
-use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -22,7 +21,7 @@ class UserController extends Controller
      */
     public function index(Request $r)
     {
-        return $this->service->getAllWithPlan();
+        return $this->service->getAllWithTenant();
     }
 
     /**
@@ -30,7 +29,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return $this->service->getOneWithPlan($user->id);
+        return $this->service->getOneWithTenant($user->id);
     }
 
     /**

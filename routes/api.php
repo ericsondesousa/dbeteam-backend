@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     PlanController,
+    TenantController,
     UserController
 };
 
@@ -23,6 +24,7 @@ Route::get('/ping', function () {
 });
 
 Route::apiResource('plans', PlanController::class);
+Route::apiResource('tenants', TenantController::class);
 
 Route::apiResource('users', UserController::class)->except('store');
 
@@ -30,4 +32,4 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/user', function (Request 
     return $request->user();
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
