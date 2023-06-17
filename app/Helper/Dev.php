@@ -20,4 +20,9 @@ class Dev
 
         return fake()->unique()->safeEmail();
     }
+
+    public static function generateToken(): string
+    {
+        return hash('sha256', rand(0, 999999) . microtime() . rand(0, 999999));
+    }
 }

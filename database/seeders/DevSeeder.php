@@ -17,9 +17,9 @@ class DevSeeder extends Seeder
         $this->call(
             [
                 PlanSeeder::class,
-                TenantSeeder::class
+                TenantSeeder::class,
+                EventSeeder::class,
             ]
-
         );
 
         User::factory()->create([

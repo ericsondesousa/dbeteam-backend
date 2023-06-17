@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
+    EventController,
     PlanController,
     TenantController,
     UserController
@@ -25,6 +26,8 @@ Route::get('/ping', function () {
 
 Route::apiResource('plans', PlanController::class);
 Route::apiResource('tenants', TenantController::class);
+Route::apiResource('events', EventController::class);
+Route::get('event/{event:token}', [EventController::class, 'public'])->name('events.public');
 
 Route::apiResource('users', UserController::class)->except('store');
 
