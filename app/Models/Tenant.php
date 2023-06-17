@@ -39,4 +39,9 @@ class Tenant extends BaseModel
     {
         return $this->hasMany(Event::class);
     }
+
+    public function players()
+    {
+        return $this->hasMany(Player::class);
+    }
 }

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     EventController,
     PlanController,
+    PlayerController,
     TenantController,
     UserController
 };
@@ -28,6 +29,9 @@ Route::apiResource('plans', PlanController::class);
 Route::apiResource('tenants', TenantController::class);
 Route::apiResource('events', EventController::class);
 Route::get('event/{event:token}', [EventController::class, 'public'])->name('events.public');
+
+Route::apiResource('players', PlayerController::class);
+Route::post('players/{player}/refreshcode', [PlayerController::class, 'refreshCode'])->name('players.refreshCode');
 
 Route::apiResource('users', UserController::class)->except('store');
 

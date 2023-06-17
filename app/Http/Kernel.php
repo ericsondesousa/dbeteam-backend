@@ -64,5 +64,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
         'events_exceed' => \App\Http\Middleware\EventsExceed::class,
+        'players_exceed' => \App\Http\Middleware\PlayersExceed::class,
     ];
 }

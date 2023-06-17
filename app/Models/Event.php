@@ -37,4 +37,9 @@ class Event extends BaseModel
     {
         return $this->belongsTo(Tenant::class);
     }
+
+    public function players()
+    {
+        return $this->hasMany(Player::class);
+    }
 }

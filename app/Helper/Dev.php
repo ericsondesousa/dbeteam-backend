@@ -7,12 +7,12 @@ use Illuminate\Support\Str;
 
 class Dev
 {
-    public function getFakeFullname(Gender $gender = null): string
+    public static function getFakeFullname(Gender $gender = null): string
     {
         return fake()->firstName($gender) . ' ' . fake()->lastName();
     }
 
-    public function getFakeEmail(string $name = null): string
+    public static function getFakeEmail(string $name = null): string
     {
         if (!empty($name)) {
             return Str::slug($name) . '@' . fake()->safeEmailDomain();

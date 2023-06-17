@@ -21,12 +21,11 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        $devHelper = new Dev();
-        $name = $devHelper->getFakeFullname(Gender::male);
+        $name = Dev::getFakeFullname(Gender::male);
 
         return [
             'name' => $name,
-            'email' => $devHelper->getFakeEmail($name),
+            'email' => Dev::getFakeEmail($name),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'tenant_id' => fake()->randomElement(Tenant::all(['id'])),
             'active' => fake()->boolean(80),

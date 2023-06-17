@@ -6,6 +6,6 @@ class EventHelper
 {
     public static function qtyEventsIsExceeded(): bool
     {
-        return auth()->user()->tenant->plan->events_limit >= auth()->user()->tenant->events->count();
+        return auth()->user()->tenant->events->count() >= auth()->user()->tenant->plan->events_limit;
     }
 }
