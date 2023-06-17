@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Tenant::class)->constrained();
+            $table->foreignIdFor(Tenant::class)->constrained()->cascadeOnDelete();
             $table->string('name', 100);
             $table->dateTime('event_date');
             $table->dateTime('confirmation_until');
