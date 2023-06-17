@@ -12,7 +12,12 @@ class Tenant extends BaseModel
     protected $guarded = [];
 
     protected $hidden = [
-        'updated_at'
+        'updated_at',
+        'plan_id'
+    ];
+
+    protected $casts = [
+        'is_subscriber' => 'boolean'
     ];
 
     public function notFoundMessage()

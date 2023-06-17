@@ -15,7 +15,7 @@ class TenantService
 
     public function getAllWithUsers()
     {
-        return Tenant::with('users')->get();
+        return Tenant::with('plan', 'users')->get();
     }
 
     public function getOne(int $id)
@@ -25,7 +25,7 @@ class TenantService
 
     public function getOneWithUsers(int $id)
     {
-        return Tenant::with('users')->find($id);
+        return Tenant::with('plan', 'users')->find($id);
     }
 
     public function createTenant(TenantRequest $request)

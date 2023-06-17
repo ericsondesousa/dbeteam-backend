@@ -14,7 +14,7 @@ class UserService
 
     public function getAllWithTenant()
     {
-        return User::with('tenant')->get();
+        return User::with('tenant', 'tenant.plan')->get();
     }
 
     public function getOne(int $id)
@@ -24,7 +24,7 @@ class UserService
 
     public function getOneWithTenant(int $id)
     {
-        return User::with('tenant')->find($id);
+        return User::with('tenant', 'tenant.plan')->find($id);
     }
 
     public function updateUser(UserRequest $request, User $user)
