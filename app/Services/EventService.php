@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
-use App\Http\Requests\EventRequest;
 use App\Models\Event;
+use App\Models\Player;
+use App\Models\PlayerConfirmation;
+use App\Http\Requests\EventRequest;
 
 class EventService
 {
@@ -36,6 +38,13 @@ class EventService
 
     public function getEventToPublic(Event $event)
     {
-        return Event::with('players')->find($event->id);
+        $allConfirmed = PlayerConfirmation::all()->pluck('confirmed_at', 'player_id')->toArray();
+        $players = Player::all()->makeHidden(['created_at', 'tenant_id', 'code']);
+        foreach ($players as $player) {
+            $player->confirmed_at = $allConfirmed[$player->id] ?? null;
+        }
+        $event['players'] = $players;
+
+        return $event;
     }
 }

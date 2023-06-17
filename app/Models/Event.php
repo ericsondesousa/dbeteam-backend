@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Helper\Dev;
 use App\Models\BaseModel;
+use App\Models\Scopes\TenantScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Event extends BaseModel
@@ -23,6 +24,8 @@ class Event extends BaseModel
 
     protected static function booted()
     {
+        static::addGlobalScope(new TenantScope);
+
         static::creating(function ($model) {
             $model->token = Dev::generateToken();
         });
@@ -41,5 +44,10 @@ class Event extends BaseModel
     public function players()
     {
         return $this->hasMany(Player::class);
+    }
+
+    public function confirmations()
+    {
+        return $this->hasMany(PlayerConfirmation::class);
     }
 }

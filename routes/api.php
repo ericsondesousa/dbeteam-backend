@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     EventController,
     PlanController,
+    PlayerConfirmationController,
     PlayerController,
     TenantController,
     UserController
@@ -27,16 +28,16 @@ Route::get('/ping', function () {
 
 Route::apiResource('plans', PlanController::class);
 Route::apiResource('tenants', TenantController::class);
+Route::apiResource('users', UserController::class)->except('store');
 Route::apiResource('events', EventController::class);
-Route::get('event/{event:token}', [EventController::class, 'public'])->name('events.public');
-
 Route::apiResource('players', PlayerController::class);
 Route::post('players/{player}/refreshcode', [PlayerController::class, 'refreshCode'])->name('players.refreshCode');
-
-Route::apiResource('users', UserController::class)->except('store');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('confirmation/{event:token}/{player:code}', [PlayerConfirmationController::class, 'toggle'])->name('confirmation.toggle');
+Route::get('event/{event:token}', [EventController::class, 'public'])->name('events.public');
 
 require __DIR__ . '/auth.php';

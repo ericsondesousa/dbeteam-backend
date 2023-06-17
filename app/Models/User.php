@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Carbon\Carbon;
 use DateTimeInterface;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Scopes\TenantScope;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -34,6 +35,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected static function booted()
     {
+        static::addGlobalScope(new TenantScope);
+
         static::creating(function ($model) {
             //
         });
