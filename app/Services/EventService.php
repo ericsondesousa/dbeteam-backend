@@ -36,6 +36,6 @@ class EventService
 
     public function getEventToPublic(Event $event)
     {
-        return Event::find($event->id);
+        return Event::with('players')->find($event->id);
     }
 }
