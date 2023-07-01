@@ -40,4 +40,3 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/user', function (Request 
 Route::post('confirmation/{event:token}/{player:code}', [PlayerConfirmationController::class, 'toggle'])->name('confirmation.toggle');
 Route::get('event/{event:token}', [EventController::class, 'public'])->name('events.public');
 
-require __DIR__ . '/auth.php';
